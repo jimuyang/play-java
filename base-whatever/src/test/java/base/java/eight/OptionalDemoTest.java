@@ -1,4 +1,7 @@
-import static org.junit.Assert.*;
+package base.java.eight;
+
+
+import org.junit.Test;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,4 +12,8 @@ import static org.junit.Assert.*;
  */
 public class OptionalDemoTest {
 
+    @Test
+    public void test() {
+        
+    }
 }
