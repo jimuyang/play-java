@@ -26,6 +26,7 @@ public abstract class AbstractDocument implements Document {
 
     @Override
     public Void put(String key, Object value) {
+        //Void 标识的方法只能返回null
         properties.put(key, value);
         return null;
     }
@@ -38,7 +39,7 @@ public abstract class AbstractDocument implements Document {
 
     @Override
     public <T> Stream<T> children(String key, Function<Map<String, Object>, T> constructor) {
-        Optional<List<Map<String, Object>>> any = Stream.of(this.get(key)).filter(el -> el != null)
+        Optional<List<Map<String, Object>>> any = Stream.of(this.get(key)).filter(Objects::nonNull)
                 .map(el -> (List<Map<String, Object>>) el).findAny();
         return any.isPresent() ? any.get().stream().map(constructor) : Stream.empty();
     }
@@ -47,8 +48,7 @@ public abstract class AbstractDocument implements Document {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(getClass().getName()).append("[");
-        properties.entrySet()
-                .forEach(e -> builder.append("[").append(e.getKey()).append(" : ").append(e.getValue()).append("]"));
+        properties.forEach((key, value) -> builder.append("[").append(key).append(" : ").append(value).append("]"));
         builder.append("]");
         return builder.toString();
     }
