@@ -29,7 +29,7 @@ public class MethodReference {
         assert converted.equals("J");
     }
 
-    class Person {
+    static class Person {
         String firstName;
         String lastName;
 
@@ -43,6 +43,10 @@ public class MethodReference {
         @Override
         public String toString() {
             return firstName + " " + lastName;
+        }
+
+        public String getFirstName() {
+            return firstName;
         }
     }
 
