@@ -111,6 +111,42 @@ public class Streams {
     }
 
     /* maps */
+    void testMaps() {
+        Map<Integer, String> map = new HashMap<>();
+        for (int i = 0; i < 10; i++) {
+            map.putIfAbsent(i, "val" + i);
+        }
+        map.forEach((id, val) -> System.out.println(val));
+
+        map.keySet().stream();
+        map.values().stream();
+        map.entrySet().stream();
+
+        map.computeIfPresent(3, (key, value) -> value + key);
+        assert "val33".equals(map.get(3));
+
+        map.computeIfPresent(9, (key, value) -> null);
+        assert !map.containsKey(9);
+        assert map.get(11) == null;
+
+        map.computeIfAbsent(12, key -> "val" + key);
+        assert map.containsKey(12);
+
+        map.computeIfAbsent(3, key -> "null");
+        assert "val33".equals(map.get(3));
+
+        map.forEach((id, val) -> System.out.println(val));
+
+        map.getOrDefault(14, "not found");
+
+        map.merge(9, "val9", String::concat);
+        map.get(9);             // val9
+
+        map.merge(9, "concat", String::concat);
+        map.get(9);             // val9concat
+
+        //可以用于改写 map putOrAdd方法
+    }
     
 
 }

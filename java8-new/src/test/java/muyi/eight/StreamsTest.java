@@ -23,4 +23,9 @@ public class StreamsTest {
     public void testParallelStream() {
         new Streams().testParallelStream();
     }
+
+    @Test
+    public void testMaps() {
+        new Streams().testMaps();
+    }
 }
