@@ -3,10 +3,7 @@ package muyi.eight;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalField;
+import java.time.temporal.*;
 import java.util.Date;
 import java.util.Locale;
 
@@ -86,6 +83,45 @@ public class DateAPI {
 
 //        LocalDateTime localDateTime = (LocalDateTime)formatter1.parse("Nov 03, 2014 - 07:13");
 //        System.out.println(localDateTime);
+    }
+
+    void someExamples() {
+        LocalDate nowDate = LocalDate.now();
+        LocalTime nowTime = LocalTime.now();
+        LocalDateTime nowDateTime = LocalDateTime.now();
+
+        print(nowDate);
+        print(nowTime);
+        print(nowDateTime);
+
+        LocalDate localDate = LocalDate.of(2019, 1, 6);
+        print(localDate);
+        localDate = LocalDate.parse("2016-02-14");
+        print(localDate);
+
+        print(nowDate.with(TemporalAdjusters.firstDayOfMonth()));
+        print(nowDate.withDayOfMonth(2));
+        print(nowDate.with(TemporalAdjusters.lastDayOfMonth()));
+
+        print(LocalDate.parse("2017-01-01").with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY))); // 2017-01-02
+
+    }
+
+    void convertDate() {
+        LocalDateTime now = LocalDateTime.now();
+        print(now);
+        Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
+        Date date = Date.from(instant);
+        print(date);
+
+        Date date1 = new Date();
+        print(date1);
+        LocalDateTime localDateTime = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        print(localDateTime);
+    }
+
+    void print(Object o) {
+        System.out.println(o.toString());
     }
 
 }
