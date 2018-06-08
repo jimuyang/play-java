@@ -1,5 +1,6 @@
 # Intent 
-Achieve flexibility of untyped languages and keep the type-safety
+Achieve flexibility of untyped languages and keep the type-safety   
+实现弱类型语言的灵活性，并且保证类型安全
 
 # Applicability
 Use the Abstract Document Pattern when:

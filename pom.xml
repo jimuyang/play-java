@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>muyi.base-whatever</module>
+        <module>base-whatever</module>
         <module>design-patterns</module>
         <module>java8-new</module>
     </modules>
