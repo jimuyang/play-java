@@ -1,8 +1,7 @@
 package muyi.eight;
 
+import muyi.eight.tutorial.MethodReference;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.

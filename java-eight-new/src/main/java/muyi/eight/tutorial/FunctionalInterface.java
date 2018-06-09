@@ -1,4 +1,4 @@
-package muyi.eight;
+package muyi.eight.tutorial;
 
 /**
  * Created with IntelliJ IDEA.

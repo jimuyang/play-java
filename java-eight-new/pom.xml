@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>muyi.java</groupId>
-    <artifactId>java8-new</artifactId>
+    <artifactId>java-eight-new</artifactId>
     <version>1.0-SNAPSHOT</version>
     
     <dependencies>
