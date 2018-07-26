@@ -50,4 +50,7 @@ public class App {
         car.getParts().forEach(p -> log.info("\t{}/{}/{}", p.getType().get(), p.getModel().get(), p.getPrice().get()));
     }
 
+    public static void main(String[] args) {
+        new App();
+    }
 }
