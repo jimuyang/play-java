@@ -14,6 +14,7 @@
         <module>abstract-factory</module>
         <module>acyclic-visitor</module>
         <module>adapter</module>
+        <module>aggregator-microservices</module>
     </modules>
 
     <properties>
