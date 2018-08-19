@@ -16,6 +16,7 @@
         <module>japi-doc</module>
         <module>play-fastjson</module>
         <module>leet-code</module>
+        <module>netty-action</module>
     </modules>
 
     <dependencies>
