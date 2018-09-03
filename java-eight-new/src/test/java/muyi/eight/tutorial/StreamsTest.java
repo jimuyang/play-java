@@ -1,4 +1,4 @@
-package muyi.eight;
+package muyi.eight.tutorial;
 
 import muyi.eight.tutorial.Streams;
 import org.junit.Test;

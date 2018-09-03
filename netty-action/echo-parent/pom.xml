@@ -3,7 +3,7 @@
 
     <!--这个demo本身属于netty_action项目的child pom-->
     <parent>
-        <groupId>com.muyi.java</groupId>
+        <groupId>muyi.java</groupId>
         <artifactId>netty-action</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>

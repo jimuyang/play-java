@@ -257,7 +257,7 @@ public class OptionalDemoTest {
 
         Optional<String> nameOptional = nameOptionalWrapper.orElseThrow(IllegalAccessException::new);
         String name1 = nameOptional.orElse("");
-        Assert.assertEquals("join", name1);
+        Assert.assertEquals("john", name1);
 
         //the provided mapper is one whose result is already an {@code Optional}
         String name = personOptional.flatMap(Person::getName).orElse("");

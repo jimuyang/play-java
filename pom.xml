@@ -17,6 +17,7 @@
         <module>play-fastjson</module>
         <module>leet-code</module>
         <module>netty-action</module>
+        <module>netty-rpc</module>
     </modules>
 
     <dependencies>

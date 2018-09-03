@@ -32,7 +32,7 @@ public class AbsIntegerEncoderTest {
         }
         assertNull(channel.readOutbound());
 
-        buf.release();
+//        buf.release();
     }
 
 }

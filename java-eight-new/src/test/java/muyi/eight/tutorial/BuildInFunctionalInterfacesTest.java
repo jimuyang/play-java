@@ -1,4 +1,4 @@
-package muyi.eight;
+package muyi.eight.tutorial;
 
 import muyi.eight.tutorial.BuildInFunctionalInterfaces;
 import org.junit.Test;
