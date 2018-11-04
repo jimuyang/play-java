@@ -1,0 +1,4 @@
+Aggregate calls to microservices in a single location: the API Gateway.
+The user makes a single call to the API Gateway, and the API Gateway then calls each relevant microservice.
+
+微服务中的api网关，将对微服务的调用集中到一起，起到统筹的作用。
