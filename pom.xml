@@ -21,7 +21,8 @@
         <module>play-fastjson</module>
         <module>leet-code</module>
         <module>netty-action</module>
-        <module>netty-rpc</module>
+        <module>netty-rpc-demo</module>
+        <module>netty-rpc-framework</module>
     </modules>
 
     <dependencies>
@@ -42,9 +43,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
         </plugins>
-
     </build>
 
 </project>
