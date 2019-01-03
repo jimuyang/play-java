@@ -13,11 +13,11 @@ public class L1TwoSum {
     public int[] twoSum1(int[] nums, int target) {
         int[] result = new int[2];
         int need;
-        for(int i=0; i<nums.length; i ++) {
+        for (int i = 0; i < nums.length; i++) {
             need = target - nums[i];
 
-            for (int j=0; j<nums.length; j ++) {
-                if (j != i && nums[j] == need){
+            for (int j = 0; j < nums.length; j++) {
+                if (j != i && nums[j] == need) {
                     result[0] = i;
                     result[1] = j;
                     return result;
@@ -29,6 +29,7 @@ public class L1TwoSum {
 
     /**
      * one-pass 使用一个map
+     *
      * @param nums
      * @param target
      * @return
@@ -38,7 +39,7 @@ public class L1TwoSum {
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
             if (map.containsKey(complement)) {
-                return new int[] { map.get(complement), i };
+                return new int[]{map.get(complement), i};
             }
             map.put(nums[i], i);
         }
