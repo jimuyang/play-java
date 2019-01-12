@@ -1,5 +1,7 @@
 package muyi.leetcode;
 
+import muyi.leetcode.struct.ListNode;
+
 /**
  * @author: Jimu Yang
  * @date: 2019/1/5 12:00 PM
@@ -18,14 +20,7 @@ public class L19NthNodeFromEnd {
      * Could you do this in one pass?
      */
 
-    public class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
         // 考虑n大于等于list长度时 此时head节点被删除

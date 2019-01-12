@@ -1,5 +1,6 @@
 package muyi.leetcode;
 
+import muyi.leetcode.struct.ListNode;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,14 +13,13 @@ import java.util.List;
 public class L21Merge2SortedLists {
 
     /**
-     * Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+     * Merge two sorted linked lists and return it as a new list.
+     * The new list should be made by splicing together the nodes of the first two lists.
      * <p>
      * Example:
      * Input: 1->2->4, 1->3->4
      * Output: 1->1->2->3->4->4
      */
-
-
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null) {
             return l2;
@@ -55,15 +55,6 @@ public class L21Merge2SortedLists {
         return start;
     }
 
-
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
 
     @Test

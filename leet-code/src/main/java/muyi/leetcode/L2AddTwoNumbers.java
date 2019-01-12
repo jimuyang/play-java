@@ -6,6 +6,8 @@ package muyi.leetcode;
  * @Description:
  */
 
+import muyi.leetcode.struct.ListNode;
+
 /**
  * Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
  * Output: 7 -> 0 -> 8
@@ -51,16 +53,5 @@ public class L2AddTwoNumbers {
         return head;
     }
 
-    /**
-     * Definition for singly-linked list.
-     */
-    class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
 }
