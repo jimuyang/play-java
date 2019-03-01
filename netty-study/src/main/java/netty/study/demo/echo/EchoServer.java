@@ -48,10 +48,10 @@ public class EchoServer {
                         public void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline p = ch.pipeline();
                             if (sslCtx != null) {
-                                p.addLast(new ChannelHandler[]{sslCtx.newHandler(ch.alloc())});
+                                p.addLast(sslCtx.newHandler(ch.alloc()));
                             }
 
-                            p.addLast(new ChannelHandler[]{new EchoServerHandler()});
+                            p.addLast(new EchoServerHandler());
                         }
                     });
             // start the server

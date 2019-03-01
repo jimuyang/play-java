@@ -9,4 +9,12 @@
 3. 注册selector
 4. 端口绑定
 
+## netty组件介绍
+NioEventLoop  ->  Thread
+Channel -> Socket
+ByteBuf -> IO Bytes
+Pipeline -> Logic Chain
+ChannelHandler -> Logic
+
+
 

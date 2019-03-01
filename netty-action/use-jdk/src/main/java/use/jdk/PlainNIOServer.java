@@ -37,11 +37,11 @@ public class PlainNIOServer {
 
         final ByteBuffer msg = ByteBuffer.wrap("Hi! \r\n".getBytes());
 
-        for (;;) {
+        for (; ; ) {
             try {
                 //阻塞直到下一个传入事件
                 selector.select();
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
                 break;
             }
@@ -56,7 +56,7 @@ public class PlainNIOServer {
 
                 try {
                     if (key.isAcceptable()) {
-                        ServerSocketChannel server = (ServerSocketChannel)key.channel();
+                        ServerSocketChannel server = (ServerSocketChannel) key.channel();
                         SocketChannel client = server.accept();
 
                         client.configureBlocking(false);
@@ -65,8 +65,8 @@ public class PlainNIOServer {
                     }
 
                     if (key.isWritable()) {
-                        SocketChannel client = (SocketChannel)key.channel();
-                        ByteBuffer buffer = (ByteBuffer)key.attachment();
+                        SocketChannel client = (SocketChannel) key.channel();
+                        ByteBuffer buffer = (ByteBuffer) key.attachment();
                         while (buffer.hasRemaining()) {
                             if (client.write(buffer) == 0) {
                                 break;
@@ -74,11 +74,11 @@ public class PlainNIOServer {
                         }
                         client.close();
                     }
-                }catch (IOException e) {
+                } catch (IOException e) {
                     key.cancel();
                     try {
                         key.channel().close();
-                    }catch (IOException ex) {
+                    } catch (IOException ex) {
                         //ignore on close
                     }
                 }
