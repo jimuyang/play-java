@@ -3,7 +3,6 @@ package muyi.leetcode;
 import org.junit.Test;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author: Jimu Yang
@@ -22,6 +21,104 @@ import java.util.stream.Collectors;
  * The output order does not matter, returning [9,0] is fine too.
  */
 public class L30SubstringConcatenationAllWords {
+
+
+    @Test
+    public void testLast() {
+        List<Integer> result = this.findSubStringLast("barfoothefoobarman", new String[]{"foo", "bar"});
+        result.forEach(System.out::println);
+    }
+
+    public List<Integer> findSubStringLast(String s, String[] words) {
+        List<Integer> result = new ArrayList<>();
+
+        if (words == null || s == null || s.length() < 1 || words.length < 1) {
+            return result;
+        }
+
+
+        int eachWordLen = words[0].length();
+        int subStringLen = eachWordLen * words.length;
+
+        Arrays.sort(words);
+        String first = words[0];
+
+        int i = -1;
+        while (true) {
+            i = s.indexOf(first, i + 1);
+            if (i < 0) {
+                return new ArrayList<>(new HashSet<Integer>(result));
+            }
+
+            String[] temp = new String[words.length];
+            // 划定范围
+            int start = i - (subStringLen - eachWordLen);
+            for (int j = start; j <= i; j += eachWordLen) {
+                if (j < 0 || j + subStringLen > s.length()) {
+                    continue;
+                }
+                String substr = s.substring(j, j + subStringLen);
+                for (int k = 0; k < substr.length(); k++) {
+                    if (k % eachWordLen == 0) {
+                        temp[k / eachWordLen] = substr.substring(k, k + eachWordLen);
+                    }
+                }
+                if (this.wordsEquals(temp, words)) {
+                    result.add(j);
+                }
+            }
+        }
+    }
+
+    private boolean wordsEquals(String[] strs, String[] words) {
+        if (strs == null || strs.length != words.length) {
+            return false;
+        }
+//        Arrays.sort(words);
+        Arrays.sort(strs);
+
+        for (int i = 0; i < strs.length; i++) {
+            if (strs[i] == null || !strs[i].equals(words[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public static boolean strArrEquals(String[] strings1, String[] strings2) {
+        if (strings1 == null && strings2 == null) {
+            return true;
+        }
+
+        if (strings1 != null && strings2 != null) {
+            if (strings1.length != strings2.length) {
+                return false;
+            }
+
+            Arrays.sort(strings1);
+            Arrays.sort(strings2);
+
+            for (int i = 0; i < strings1.length; i++) {
+                if (strings1[i] == null) {
+                    if (strings2[i] == null) {
+                        continue;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (!strings1[i].equals(strings2[i])) {
+                        return false;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     public List<Integer> findSubString2(String s, String[] words) {
