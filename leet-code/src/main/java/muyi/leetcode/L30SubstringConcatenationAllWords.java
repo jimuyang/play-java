@@ -36,11 +36,11 @@ public class L30SubstringConcatenationAllWords {
             return result;
         }
 
-
         int eachWordLen = words[0].length();
         int subStringLen = eachWordLen * words.length;
 
-        Arrays.sort(words);
+//        Arrays.sort(words);
+        Map<String, Integer> wordsMap = countWords(words);
         String first = words[0];
 
         int i = -1;
@@ -51,21 +51,34 @@ public class L30SubstringConcatenationAllWords {
             }
 
             String[] temp = new String[words.length];
+            Map<String, Integer> tempMap = new HashMap<>();
+
             // 划定范围
             int start = i - (subStringLen - eachWordLen);
             for (int j = start; j <= i; j += eachWordLen) {
                 if (j < 0 || j + subStringLen > s.length()) {
                     continue;
                 }
+                tempMap.clear();
                 String substr = s.substring(j, j + subStringLen);
+                boolean is = true;
                 for (int k = 0; k < substr.length(); k++) {
                     if (k % eachWordLen == 0) {
-                        temp[k / eachWordLen] = substr.substring(k, k + eachWordLen);
+                        String oneWord = substr.substring(k, k + eachWordLen);
+
+                        tempMap.compute(oneWord, (key, old) -> old == null ? 1 : old + 1);
+                        if (tempMap.get(oneWord) > wordsMap.getOrDefault(oneWord, 0)) {
+                            is = false;
+                            break;
+                        }
                     }
                 }
-                if (this.wordsEquals(temp, words)) {
-                    result.add(j);
-                }
+//                if (this.wordsEquals(temp, words)) {
+//                    result.add(j);
+//                }
+//                if (this.wordCountEquals(temp, wordsMap)) {
+                if (is) result.add(j);
+//                }
             }
         }
     }
@@ -85,6 +98,24 @@ public class L30SubstringConcatenationAllWords {
         return true;
     }
 
+    public static Map<String, Integer> countWords(String[] words) {
+        Map<String, Integer> countMap = new HashMap<>();
+        for (String word : words) {
+            countMap.compute(word, (key, old) -> old == null ? 1 : old + 1);
+        }
+        return countMap;
+    }
+
+    private boolean wordCountEquals(String[] temp, Map<String, Integer> wordCountMap) {
+        Map<String, Integer> tempMap = new HashMap<>();
+        for (String word : temp) {
+            tempMap.compute(word, (key, old) -> old == null ? 1 : old + 1);
+            if (tempMap.get(word) > wordCountMap.getOrDefault(word, 0)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static boolean strArrEquals(String[] strings1, String[] strings2) {
         if (strings1 == null && strings2 == null) {
@@ -121,6 +152,44 @@ public class L30SubstringConcatenationAllWords {
     }
 
 
+    // 我用的array.sort 改良下 用hashmap试试？
+
+//    public List<Integer> findSubStringOther(String s, String[] words) {
+//        List<Integer> result = new ArrayList<>();
+//        int sLen = s.length(), wordNum = words.length;
+//        if (sLen <= 0 || wordNum <= 0) {
+//            return result;
+//        }
+//
+//        // count word occurance
+//        Map<String, Integer> wordCount = new HashMap<>();
+//        for (String word : words) {
+//            wordCount.compute(word, (key, old) -> old == null ? 1 : old + 1);
+//        }
+//
+//        // travel all substring combinations
+//        int eachWordLen = words[0].length();
+//        for (int i = 0; i < eachWordLen; i++) {
+//            int left = i, count = 0;
+//            Map<String, Integer> tempMap = new HashMap<>();
+//            for (int j = i; j <= sLen - eachWordLen; j += eachWordLen) {
+//                String str = s.substring(j, eachWordLen);
+//                //
+//                if (wordCount.containsKey(str)) {
+//                    tempMap.compute(str, (key, old) -> old == null ? 1 : old + 1);
+//
+//                }
+//            }
+//
+//        }
+//
+//
+//    }
+
+
+    /**
+     * 分割线
+     */
     public List<Integer> findSubString2(String s, String[] words) {
         List<Integer> result = new ArrayList<>();
         if (s == null || s.length() == 0 || words == null || words.length == 0) {
