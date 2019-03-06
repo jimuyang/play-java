@@ -21,10 +21,6 @@
         <module>java-eight-new</module>
         <module>japi-doc</module>
         <module>leet-code</module>
-        <module>netty-action</module>
-        <module>netty-rpc-demo</module>
-        <module>netty-rpc-framework</module>
-        <module>netty-study</module>
     </modules>
 
     <dependencies>

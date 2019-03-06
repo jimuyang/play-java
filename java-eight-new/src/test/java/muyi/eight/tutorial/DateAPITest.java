@@ -14,16 +14,16 @@ public class DateAPITest {
 
     @Test
     public void test1() {
-        new DateAPI().test();
+//        new DateAPI().test();
     }
 
     @Test
     public void test2() {
-        new DateAPI().someExamples();
+//        new DateAPI().someExamples();
     }
 
     @Test
     public void test3() {
-        new DateAPI().convertDate();
+//        new DateAPI().convertDate();
     }
 }
