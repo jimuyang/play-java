@@ -10,6 +10,7 @@ import java.util.Random;
  * @descricption: want more.
  * <p>
  * 蒙特卡洛算法计算 π
+ * 原理简单 不再解释
  */
 public class CalculatePi {
 
@@ -18,6 +19,7 @@ public class CalculatePi {
         int count = 0;
         for (int i = 0; i < 100000000; i++) {
 
+            // [-1, 1) 的随机数
             double x = random.nextDouble() * 2 - 1;
             double y = random.nextDouble() * 2 - 1;
 
