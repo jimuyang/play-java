@@ -21,6 +21,7 @@
         <module>java-eight-new</module>
         <module>japi-doc</module>
         <module>leet-code</module>
+        <module>playground</module>
     </modules>
 
     <dependencies>
