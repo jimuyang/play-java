@@ -1,5 +1,6 @@
 package muyi.leetcode;
 
+import muyi.leetcode.struct.FixedStack;
 import org.junit.Test;
 
 import java.util.Stack;
@@ -18,38 +19,28 @@ public class L32LongestParenthese {
         char[] chars = s.toCharArray();
 
         int longest = 0;
+        int pair, old, temp;
 
-        Stack<Integer> stack = new Stack<>();
+        FixedStack<Integer> stack = new FixedStack<>(s.length() + 1);
         stack.push(0);
-
-
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == '(') {
                 stack.push(0);
             } else {
                 if (stack.size() > 1) {
-                    int pair = stack.pop();
-                    int old = stack.pop();
-                    stack.push(old + pair + 1);
+                    pair = stack.pop();
+                    old = stack.pop();
+                    temp = old + pair + 1;
+                    longest = longest > temp ? longest : temp;
+                    stack.push(temp);
                 } else {
-                    // 此处认为一段检查已完结
-                    for (Integer pair : stack) {
-                        longest = longest > pair ? longest : pair;
-                    }
                     stack.clear();
                     stack.push(0);
                 }
             }
         }
-
-        // 此处认为一段检查已完结
-        for (Integer pair : stack) {
-            longest = longest > pair ? longest : pair;
-        }
-
         return longest * 2;
     }
-
 
 //    public int longestValidParentheses1(String s) {
 //        if (s == null || s.length() == 0) return 0;
