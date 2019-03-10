@@ -16,15 +16,13 @@ public class L32LongestParenthese {
 
     public int longestValidParentheses2(String s) {
         if (s == null || s.length() == 0) return 0;
-        char[] chars = s.toCharArray();
-
         int longest = 0;
         int pair, old, temp;
 
         FixedStack<Integer> stack = new FixedStack<>(s.length() + 1);
         stack.push(0);
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == '(') {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
                 stack.push(0);
             } else {
                 if (stack.size() > 1) {
