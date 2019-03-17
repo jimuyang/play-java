@@ -1,9 +1,7 @@
 package muyi.leetcode;
 
-import muyi.leetcode.struct.FixedStack;
+import muyi.leetcode.base.FixedStack;
 import org.junit.Test;
-
-import java.util.Stack;
 
 /**
  * @author: Jimu Yang

@@ -1,9 +1,11 @@
-package muyi.leetcode.struct;
+package muyi.leetcode.base;
+
 
 /**
  * @author: Jimu Yang
  * @date: 2019/3/10 2:08 PM
  * @descricption: want more.
+ * 固定容量的栈实现 没有扩容 没有index溢出检查
  */
 public class FixedStack<T> {
 
@@ -28,6 +30,11 @@ public class FixedStack<T> {
     public T pop() {
         index--;
         return (T) values[index];
+    }
+
+    @SuppressWarnings("unchecked")
+    public T peek() {
+        return (T) values[index - 1];
     }
 
     public void clear() {
