@@ -9,30 +9,42 @@ package muyi.leetcode.base;
  */
 public class MaxHeap<T extends Comparable<T>> {
 
-    transient Object[] data;
+    private transient Object[] data;
 
-    int size;
+    private int capacity;
+
+    private int size;
 
     public MaxHeap(int capacity) {
-        data = new Object[capacity];
-        size = 0;
+        this.data = new Object[capacity];
+        this.capacity = capacity;
+        this.size = 0;
     }
 
     public void add(T value) {
-
-        Comparable<T> comparable = (Comparable<T>) value;
-
-//        Comparable<? super T> key = (Comparable<? super T>) value;
-//        key.compareTo(value);
-
+        if (value == null)
+            throw new NullPointerException();
+        if (size >= capacity)
+            throw new IndexOutOfBoundsException();
+        siftUp(size++, value);
     }
 
+    @SuppressWarnings("unchecked")
     public T poll() {
-
+        if (size == 0)
+            return null;
+        int last = --size;
+        T max = (T) data[0];
+        T x = (T) data[last];
+        data[last] = null;
+        if (last != 0)
+            siftDown(0, x);
+        return max;
     }
 
+    @SuppressWarnings("unchecked")
     public T max() {
-
+        return size == 0 ? null : (T) data[0];
     }
 
     /**
