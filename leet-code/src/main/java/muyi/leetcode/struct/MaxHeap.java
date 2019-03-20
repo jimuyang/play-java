@@ -1,4 +1,4 @@
-package muyi.leetcode.base;
+package muyi.leetcode.struct;
 
 /**
  * @author: Jimu Yang

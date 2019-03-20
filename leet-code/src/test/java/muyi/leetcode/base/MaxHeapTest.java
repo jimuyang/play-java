@@ -1,11 +1,9 @@
 package muyi.leetcode.base;
 
-import org.junit.Before;
+import muyi.leetcode.struct.MaxHeap;
 import org.junit.Test;
 
 import java.util.Random;
-
-import static org.junit.Assert.*;
 
 /**
  * @author: Jimu Yang

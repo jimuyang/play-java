@@ -1,6 +1,6 @@
 package muyi.leetcode;
 
-import muyi.leetcode.base.FixedStack;
+import muyi.leetcode.struct.FixedStack;
 import org.junit.Test;
 
 /**
