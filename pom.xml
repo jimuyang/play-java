@@ -21,7 +21,7 @@
         <module>design-patterns</module>
         <module>java-eight-new</module>
         <module>japi-doc</module>
-        <module>leet-code</module>
+        <module>leetcode-solve</module>
         <module>playground</module>
     </modules>
 
