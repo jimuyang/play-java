@@ -17,16 +17,27 @@ public class L37SolveSudoku {
     public void test() {
         @SuppressWarnings("Duplicates")
         char[][] test =
+//                new char{}{}{
+//                        {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+//                        {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+//                        {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+//                        {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+//                        {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+//                        {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+//                        {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+//                        {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+//                        {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+
                 new char[][]{
-                        {'8', '3', '.', '.', '7', '.', '.', '.', '.'},
-                        {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
-                        {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
-                        {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
-                        {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
-                        {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
-                        {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
-                        {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
-                        {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+                        {'.', '.', '9', '7', '4', '8', '.', '.', '.'},
+                        {'7', '.', '.', '.', '.', '.', '.', '.', '.'},
+                        {'.', '2', '.', '1', '.', '9', '.', '.', '.'},
+                        {'.', '.', '7', '.', '.', '.', '2', '4', '.'},
+                        {'.', '6', '4', '.', '1', '.', '5', '9', '.'},
+                        {'.', '9', '8', '.', '.', '.', '3', '.', '.'},
+                        {'.', '.', '.', '8', '.', '3', '.', '2', '.'},
+                        {'.', '.', '.', '.', '.', '.', '.', '.', '6'},
+                        {'.', '.', '.', '2', '7', '5', '9', '.', '.'}};
         this.solveSudoku(test);
     }
 
@@ -44,17 +55,48 @@ public class L37SolveSudoku {
             }
         }
         FixedStack<Point> stack = new FixedStack<>(81);
+        Point current = solver.mostLimited;
+        byte usedBe = 0;
 
         while (true) {
-            if (solver.maxLimitedCount < 9) {
-                byte one = solver.mostLimited.oneUnlimited();
-                solver.put(solver.mostLimited.x, solver.mostLimited.y, one);
+            if (current == null) {
+                break;
+            }
+
+            if (current.limitedCount < 9) {
+                byte tryOne = current.oneUnlimited(usedBe);
+                if (tryOne == 0) {
+                    // 都试过了 只能回溯
+                    current = stack.pop();
+                    usedBe = current.now;
+                    solver.take(current.x, current.y);
+                    continue;
+                }
+
+                solver.maxLimitedCount = -1;
+                solver.mostLimited = null;
+
+                stack.push(current);
+                solver.put(current.x, current.y, tryOne);
+                current = solver.mostLimited;
+                usedBe = 0;
                 continue;
             }
-            break;
+
+            if (current.limitedCount == 9) {
+                // 回溯
+                current = stack.pop();
+                usedBe = current.now;
+                solver.take(current.x, current.y);
+                continue;
+            }
+
+            throw new RuntimeException("not here");
         }
-        solver.showPoints();
-        return;
+//        solver.showPoints();
+//        System.out.println(new L36ValidSudoku().isValidSudoku(solver.toChars()));
+        solver.setAnswer(board);
+        solver.showChars(board);
     }
 
     class Solver {
@@ -123,16 +165,14 @@ public class L37SolveSudoku {
         }
 
         private void limit(Point point, byte value) {
-//            if (point.now != 0) return;
             byte limitedCount = point.limit(value);
-            if (limitedCount > maxLimitedCount) {
+            if (limitedCount > maxLimitedCount && point.now == 0) {
                 maxLimitedCount = limitedCount;
                 mostLimited = point;
             }
         }
 
         private void unlimit(Point point, byte value) {
-//            if (point.now != 0) return;
             point.unlimit(value);
             // 当使用unlimit时直接置空
             mostLimited = null;
@@ -157,6 +197,38 @@ public class L37SolveSudoku {
             }
             System.out.println(sb.toString());
         }
+
+        public char[][] toChars() {
+            char[][] chars = new char[9][9];
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    chars[i][j] = String.valueOf(points[i][j].now).charAt(0);
+                }
+            }
+            return chars;
+        }
+
+        public void setAnswer(char[][] target) {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if (points[i][j].now != 0)
+                        target[i][j] = (char) (points[i][j].now + 48);
+                    else
+                        target[i][j] = (char) (points[i][j].oneUnlimited() + 48);
+                }
+            }
+        }
+
+        public void showChars(char[][] target) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    sb.append(target[i][j]).append(" ");
+                }
+                sb.append("\n");
+            }
+            System.out.println(sb.toString());
+        }
     }
 
 
@@ -175,13 +247,17 @@ public class L37SolveSudoku {
             this.y = y;
         }
 
-        byte oneUnlimited() {
-            for (byte i = 1; i < 10; i++) {
+        byte oneUnlimited(byte start) {
+            for (byte i = (byte) (start + 1); i < 10; i++) {
                 if (canIPut(i)) {
                     return i;
                 }
             }
             return 0;
+        }
+
+        byte oneUnlimited() {
+            return oneUnlimited((byte) 0);
         }
 
         boolean canIPut(byte value) {
@@ -209,27 +285,28 @@ public class L37SolveSudoku {
         }
 
         byte unlimit(byte value) {
-            if (canIPut(value))
-                throw new RuntimeException("already unlimited: " + value);
+//            if (canIPut(value))
+//                throw new RuntimeException("already unlimited: " + value);
             limited -= (1 << ((value - 1) << 1));
             if (canIPut(value)) limitedCount--;
             return now == 0 ? limitedCount : 0;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Point point = (Point) o;
-            return x == point.x &&
-                    y == point.y;
-        }
 
-        @Override
-        public int hashCode() {
-//            return Objects.hash(x, y);
-            return y * 10 + x;
-        }
+//        @Override
+//        public boolean equals(Object o) {
+//            if (this == o) return true;
+//            if (o == null || getClass() != o.getClass()) return false;
+//            Point point = (Point) o;
+//            return x == point.x &&
+//                    y == point.y;
+//        }
+//
+//        @Override
+//        public int hashCode() {
+////            return Objects.hash(x, y);
+//            return y * 10 + x;
+//        }
     }
 
 }
