@@ -1,6 +1,5 @@
 package muyi.leetcode;
 
-import muyi.leetcode.base.BinarySearch;
 import org.junit.Test;
 
 import java.util.Arrays;

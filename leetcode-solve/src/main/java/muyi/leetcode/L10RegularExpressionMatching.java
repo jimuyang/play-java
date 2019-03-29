@@ -2,7 +2,6 @@ package muyi.leetcode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * 简单的正则匹配实现

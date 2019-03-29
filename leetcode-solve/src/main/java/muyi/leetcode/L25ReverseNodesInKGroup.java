@@ -3,8 +3,6 @@ package muyi.leetcode;
 import muyi.leetcode.struct.ListNode;
 import org.junit.Test;
 
-import javax.xml.soap.Node;
-
 /**
  * @author: Jimu Yang
  * @date: 2019/1/16 9:54 PM

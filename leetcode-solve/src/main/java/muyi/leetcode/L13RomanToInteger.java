@@ -21,7 +21,7 @@ public class L13RomanToInteger {
      * M             1000
      */
 
-    private static final char[][] ROMAN_CHAR = {{'I', 'V'}, {'X', 'L'}, {'C', 'D'}, {'M', '0'}};
+    // private static final char[][] ROMAN_CHAR = {{'I', 'V'}, {'X', 'L'}, {'C', 'D'}, {'M', '0'}};
 
     public static final Map<Character, Integer> ROMAN_MAP;
 

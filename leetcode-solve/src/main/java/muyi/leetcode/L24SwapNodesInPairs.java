@@ -2,8 +2,6 @@ package muyi.leetcode;
 
 import muyi.leetcode.struct.ListNode;
 
-import java.util.List;
-
 /**
  * @author: Jimu Yang
  * @date: 2019/1/16 9:30 PM

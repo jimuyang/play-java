@@ -50,7 +50,7 @@ public class L30SubstringConcatenationAllWords {
                 return new ArrayList<>(new HashSet<Integer>(result));
             }
 
-            String[] temp = new String[words.length];
+            // String[] temp = new String[words.length];
             Map<String, Integer> tempMap = new HashMap<>();
 
             // 划定范围
@@ -83,20 +83,20 @@ public class L30SubstringConcatenationAllWords {
         }
     }
 
-    private boolean wordsEquals(String[] strs, String[] words) {
-        if (strs == null || strs.length != words.length) {
-            return false;
-        }
-//        Arrays.sort(words);
-        Arrays.sort(strs);
+//     private boolean wordsEquals(String[] strs, String[] words) {
+//         if (strs == null || strs.length != words.length) {
+//             return false;
+//         }
+// //        Arrays.sort(words);
+//         Arrays.sort(strs);
 
-        for (int i = 0; i < strs.length; i++) {
-            if (strs[i] == null || !strs[i].equals(words[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
+//         for (int i = 0; i < strs.length; i++) {
+//             if (strs[i] == null || !strs[i].equals(words[i])) {
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
 
     public static Map<String, Integer> countWords(String[] words) {
         Map<String, Integer> countMap = new HashMap<>();
@@ -106,16 +106,16 @@ public class L30SubstringConcatenationAllWords {
         return countMap;
     }
 
-    private boolean wordCountEquals(String[] temp, Map<String, Integer> wordCountMap) {
-        Map<String, Integer> tempMap = new HashMap<>();
-        for (String word : temp) {
-            tempMap.compute(word, (key, old) -> old == null ? 1 : old + 1);
-            if (tempMap.get(word) > wordCountMap.getOrDefault(word, 0)) {
-                return false;
-            }
-        }
-        return true;
-    }
+    // private boolean wordCountEquals(String[] temp, Map<String, Integer> wordCountMap) {
+    //     Map<String, Integer> tempMap = new HashMap<>();
+    //     for (String word : temp) {
+    //         tempMap.compute(word, (key, old) -> old == null ? 1 : old + 1);
+    //         if (tempMap.get(word) > wordCountMap.getOrDefault(word, 0)) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
     public static boolean strArrEquals(String[] strings1, String[] strings2) {
         if (strings1 == null && strings2 == null) {

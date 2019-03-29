@@ -3,8 +3,6 @@ package muyi.leetcode;
 import muyi.leetcode.struct.ListNode;
 import org.junit.Test;
 
-import java.util.List;
-
 /**
  * @author: Jimu Yang
  * @date: 2019/1/6 8:26 PM
@@ -67,7 +65,8 @@ public class L21Merge2SortedLists {
         l2.next = new ListNode(3);
         l2.next.next = new ListNode(4);
 
-        ListNode result = this.mergeTwoLists(l1, l2);
+        // ListNode result = this.mergeTwoLists(l1, l2);
+
         return;
     }
 

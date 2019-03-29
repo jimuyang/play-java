@@ -2,7 +2,6 @@ package muyi.leetcode;
 
 import muyi.leetcode.struct.ListNode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**

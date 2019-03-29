@@ -35,8 +35,8 @@ public class L26RemoveDuplicatesFromSorted {
 
     @Test
     public void test() {
-        int[] arr = new int[]{1, 2, 2, 3, 3};
-        int len = this.removeDuplicates(arr);
+        // int[] arr = new int[]{1, 2, 2, 3, 3};
+        // int len = this.removeDuplicates(arr);
         return;
     }
 
