@@ -1,7 +1,5 @@
 package muyi.leetcode;
 
-import org.junit.Test;
-
 /**
  * @author: Yang Fan
  * @date: 2019-04-09
