@@ -17,12 +17,18 @@ public class L46Permutations {
         int size = factorial(len);
 
         List<List<Integer>> result = new ArrayList<>(size);
+//        int[] copy = Arrays.copyOf(nums, len);
 
-
-        // 第一个数
-        for (int i = 0; i < len; i++) {
-
+        L31NextPermutation nextPermutation = new L31NextPermutation();
+        for (int i = 0; i < size; i++) {
+            nextPermutation.nextPermutation(nums);
+            List<Integer> t = new ArrayList<>(len);
+            for (int k : nums) {
+                t.add(k);
+            }
+            result.add(t);
         }
+        return result;
     }
 
 
@@ -35,6 +41,7 @@ public class L46Permutations {
     }
 
     public static void swap(int i1, int i2, int[] nums) {
+        if (i1 == i2) return;
         int t = nums[i1];
         nums[i1] = nums[i2];
         nums[i2] = t;
