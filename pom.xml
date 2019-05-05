@@ -23,6 +23,8 @@
         <module>japi-doc</module>
         <module>leetcode-solve</module>
         <module>playground</module>
+        <module>web-test</module>
+        <module>dubbo-learn</module>
     </modules>
 
     <dependencies>
