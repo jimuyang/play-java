@@ -35,15 +35,21 @@ public class L50Pow {
 
     @Test
     public void test() {
-        System.out.println(this.myPowFast(5, 2));
+        System.out.println(this.myPowFast(5, Integer.MIN_VALUE));
     }
 
 
     public double myPowFast(double x, int n) {
         // fixme -2147483648
+        boolean MIN = false;
         if (n < 0) {
+            if (n == Integer.MIN_VALUE) {
+                n = Integer.MAX_VALUE;
+                MIN = true;
+            } else {
+                n = -n;
+            }
             x = 1 / x;
-            n = -n;
         }
 
         // 右移
@@ -57,6 +63,9 @@ public class L50Pow {
 
             n = n >> 1;
             xi *= xi;
+        }
+        if (MIN) {
+            result *= x;
         }
 
         return result;
