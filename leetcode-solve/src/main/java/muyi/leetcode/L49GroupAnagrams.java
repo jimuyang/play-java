@@ -24,11 +24,7 @@ public class L49GroupAnagrams {
                 key *= arr[str.charAt(i) - 'a'];
             }
 
-            List<String> list = resultMap.get(key);
-            if (list == null) {
-                list = new LinkedList<>();
-                resultMap.put(key, list);
-            }
+            List<String> list = resultMap.computeIfAbsent(key, k -> new LinkedList<>());
             list.add(str);
 
 
@@ -67,11 +63,7 @@ public class L49GroupAnagrams {
             Arrays.sort(chars);
             String nstr = new String(chars);
 
-            List<String> list = resultMap.get(nstr);
-            if (list == null) {
-                list = new LinkedList<>();
-                resultMap.put(nstr, list);
-            }
+            List<String> list = resultMap.computeIfAbsent(nstr, k -> new LinkedList<>());
             list.add(str);
         }
         List<List<String>> result = new ArrayList<>();
