@@ -44,4 +44,13 @@ public class FixedStack<T> {
     public int size() {
         return index;
     }
+
+    public Object[] values() {
+        return values;
+    }
+
+    public T valueAt(int index) {
+        return (T) values[index];
+    }
+
 }
