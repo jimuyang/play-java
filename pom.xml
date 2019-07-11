@@ -25,6 +25,7 @@
         <module>playground</module>
         <module>web-test</module>
         <module>dubbo-learn</module>
+        <module>groovy-rule</module>
     </modules>
 
     <dependencies>
