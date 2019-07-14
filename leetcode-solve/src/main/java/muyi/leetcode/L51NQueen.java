@@ -17,7 +17,7 @@ public class L51NQueen {
 
     @Test
     public void test() {
-        List<List<String>> result = this.solveNQueens(4);
+        List<List<String>> result = this.solveNQueens(5);
         result.forEach(System.out::println);
     }
 
@@ -34,6 +34,7 @@ public class L51NQueen {
         while (!(stack.isEmpty() && lastX == n - 1)) {
             if (stack.isEmpty()) {
                 stack.push(new Coord(lastX + 1, 0));
+                lastX = -1;
                 continue;
             }
 
@@ -104,7 +105,8 @@ public class L51NQueen {
     private boolean conflict(int x1, int y1, int x2, int y2) {
         return x1 == x2
                 || y1 == y2
-                || Math.abs((y1 - y2) / (x1 - x2)) == 1;
+                || y1 - y2 == x1 - x2
+                || y1 - y2 == x2 - x1;
     }
 
 

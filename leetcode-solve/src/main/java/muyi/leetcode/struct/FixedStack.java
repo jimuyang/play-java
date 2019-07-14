@@ -28,8 +28,9 @@ public class FixedStack<T> {
 
     @SuppressWarnings("unchecked")
     public T pop() {
-        index--;
-        return (T) values[index];
+        Object top = values[--index];
+        values[index] = null;
+        return (T) top;
     }
 
     @SuppressWarnings("unchecked")
