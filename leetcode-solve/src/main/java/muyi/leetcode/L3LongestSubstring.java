@@ -1,5 +1,8 @@
 package muyi.leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Author: muyi-corp
  * @Date: Created in 13:21 2018/1/30
@@ -56,22 +59,50 @@ public class L3LongestSubstring {
                 //找不到char 可以将char加入subs中
                 //subs = s.substring(start, i+1);
             }
-            subs = s.substring(start, i+1);
+            subs = s.substring(start, i + 1);
 
             int subsLength = subs.length();
 
             if (subsLength > maxLength) {
                 maxLength = subsLength;
             }
-            System.out.println("substring: "+ subs);
+            System.out.println("substring: " + subs);
         }
 
         return maxLength;
     }
 
+    public int lengthOfLongestSubstringFast(String s) {
+        if (s == null || s.equals("")) {
+            return 0;
+        }
+        int len = s.length();
+        int max = 0;
+        int barrier = -1;
+        for (int i = 0; i < len; i++) {
+            char c = s.charAt(i);
+            int t = indexOf(s, c, barrier + 1, i);
+            barrier = barrier < t ? t : barrier;
+            int tMax = i - barrier;
+            max = max > tMax ? max : tMax;
+        }
+        return max;
+    }
+
+    public static int indexOf(String str, char c, int fromIndex, int toIndex) {
+        if (fromIndex < 0) fromIndex = 0;
+        for (int i = fromIndex; i < toIndex; i++) {
+            if (str.charAt(i) == c) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
     public static void main(String[] args) {
-        String string = "abcdabcd";
-        int i = new L3LongestSubstring().lengthOfLongestSubstring(string);
+        String string = "bbbb";
+        int i = new L3LongestSubstring().lengthOfLongestSubstringFast(string);
         System.out.println(i);
     }
 

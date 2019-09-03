@@ -48,15 +48,22 @@ public class StartAndShutdown {
      * @see InterruptedException
      */
 
-    public static void main(String[] args) {
-//        Thread.currentThread().isInterrupted();
-    }
-
+    /**
+     * 过期的      suspend() resume() stop()
+     * 对应CD机的   暂停       恢复     停止
+     *
+     * 不建议使用的原因有：
+     * suspend()让线程进入睡眠状态时，不会释放已经占有的资源（锁）
+     * stop()终结线程时 会立刻停止运行但无法保证线程的资源*正常*释放(会释放所有的资源
+     * 下面有安全的终止线程的方法 而暂停和恢复可以用等待/通知机制来代替
+     * @see Thread#suspend()
+     * @see Thread#resume()
+     * @see Thread#stop()
+     */
 
     /**
      * 安全的终止线程
      */
-
     public static class Shutdown {
 
         public static void main(String[] args) throws Exception {
