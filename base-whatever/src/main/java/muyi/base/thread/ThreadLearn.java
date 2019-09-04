@@ -1,14 +1,16 @@
 package muyi.base.thread;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author: Yang Fan
  * @date: 2019-09-02
- * @desc: 线程启动和终止
+ * @desc: 线程知识学习
  * @see Thread
  */
-public class StartAndShutdown {
+public class ThreadLearn {
 
     /**
      * 在运行线程之前要先构造一个线程对象，线程对象在构造时需要提供线程所需要的属性：线程组、优先级、是否daemon等等
@@ -63,8 +65,9 @@ public class StartAndShutdown {
 
     /**
      * 安全的终止线程
+     * 这里介绍2种方式：interrupt和通过标识位
      */
-    public static class Shutdown {
+    public static class SafeShutdown {
 
         public static void main(String[] args) throws Exception {
             Runner one = new Runner();
@@ -102,7 +105,109 @@ public class StartAndShutdown {
                 on = false;
             }
         }
+    }
+
+    /**
+     * 线程间通信
+     * Java支持多个线程同时访问一个对象或者对象的成员变量，由于每个线程可以拥有这个变量的拷贝
+     * （虽然对象以及成员变量分配的内存是在共享内存中，但每个执行的线程还是可以拥有一份拷贝，目的是加速程序的执行
+     * volatile关键词的作用可以简单的理解成 关掉拷贝, 但会降低程序执行的效率
+     * synchronized可以修饰方法或代码块，它可以确保在某个时刻，只能有一个线程处于同步块中，保证了线程对变量访问的可见性和排他性
+     */
+
+    /**
+     * 等待/通知机制
+     * <p>
+     * notify 通知在对象上等待的线程，使其从wait方法返回，当然前提是该线程拿到了该对象的锁
+     * wait   调用该方法的线程进入WAITING状态，只用等待另外线程的通知或被中断才会返回，调用wait方法后 会释放对象的锁
+     */
+
+    public static class WaitNotify {
+        static boolean flag = true;
+
+        static Object lock = new Object();
+
+        /**
+         * Thread[WaitThread,5,main] flag is true. wait@ 16:57:47
+         * Thread[NotifyThread,5,main] hold lock. notify@16:57:48
+         * Thread[WaitThread,5,main] flag is false. running@ 16:57:53
+         * Thread[NotifyThread,5,main] hold lock again. sleep@ 16:57:53
+         *
+         * 几个关键点：
+         * 1. notify和wait使用前都需要对对象加锁
+         * 2. wait方法返回的前提是重新获得了对象的锁（调用时释放了锁
+         * 3. notifyAll将所有等待队列（WAITING）的线程移到同步队列（BLOCKED）
+         */
+        public static void main(String[] args) throws Exception {
+            Thread waitThread = new Thread(new Wait(), "WaitThread");
+            waitThread.start();
+
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (Exception ignore) {
+            }
+
+            Thread notifyThread = new Thread(new Notify(), "NotifyThread");
+            notifyThread.start();
+        }
+
+        static class Wait implements Runnable {
+            @Override
+            public void run() {
+                // 首先都是要加锁的
+                synchronized (lock) {
+                    // 当条件不满足时，继续wait 同时释放lock
+                    try {
+                        while (flag) {
+                            System.out.println(Thread.currentThread() + " flag is true. wait@ " +
+                                    new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                            lock.wait();
+                        }
+                    } catch (InterruptedException ignore) {
+                    }
+
+                    // 条件满足时，完成工作
+                    System.out.println(Thread.currentThread() + " flag is false. running@ " +
+                            new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                }
+            }
+        }
+
+        static class Notify implements Runnable {
+            @Override
+            public void run() {
+                // 首先都是要加锁的
+                synchronized (lock) {
+                    // 进行通知 通知时不会释放lock
+                    // 知道当前线程释放了lock后，waitThread才能从wait方法返回(这一点非常重要
+                    System.out.println(Thread.currentThread() + " hold lock. notify@" +
+                            new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                    lock.notifyAll();
+                    flag = false;
+
+                    try {
+                        TimeUnit.SECONDS.sleep(5);
+                    } catch (Exception ignore) {
+                    }
+                }
+                // 如果在同步块外修改flag 是否可能导致waitThread先醒来 因flag还是true又重新wait 唤醒失败
+                // flag = false; // 不能写在这里 也违反了可见性
+
+                // 再次加锁
+                synchronized (lock) {
+                    System.out.println(Thread.currentThread() + " hold lock again. sleep@ " +
+                            new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                    try {
+                        TimeUnit.SECONDS.sleep(5);
+                    } catch (Exception ignore) {
+                    }
+                }
+
+            }
+        }
+
 
     }
+
 
 }
