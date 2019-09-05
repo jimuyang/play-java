@@ -132,7 +132,7 @@ public class ThreadLearn {
          * Thread[NotifyThread,5,main] hold lock. notify@16:57:48
          * Thread[WaitThread,5,main] flag is false. running@ 16:57:53
          * Thread[NotifyThread,5,main] hold lock again. sleep@ 16:57:53
-         *
+         * <p>
          * 几个关键点：
          * 1. notify和wait使用前都需要对对象加锁
          * 2. wait方法返回的前提是重新获得了对象的锁（调用时释放了锁
@@ -202,12 +202,81 @@ public class ThreadLearn {
                     } catch (Exception ignore) {
                     }
                 }
+            }
+        }
+    }
 
+    /**
+     * 等待/通知的基本范式
+     *
+     * 消费方遵循如下原则：
+     * 1）获取对象的锁
+     * 2）如果条件不满足 那么调用对象的wait方法，被通知后任要检查条件（写成while循环
+     * 3）条件满足则执行响应的逻辑
+     *
+     * synchronized(lock) {
+     *     while(条件不满足) {
+     *         lock.wait();
+     *     }
+     * }
+     * // 相应的处理逻辑
+     *
+     * 通知方遵循如下原则：
+     * 1) 获取对象的锁
+     * 2）改变条件
+     * 3）通知所有等待在对象上的线程
+     *
+     * synchronized(lock) {
+     *     // 改变条件
+     *     lock.notifyAll();
+     * }
+     *
+     */
+
+    /**
+     * Thread.join()的使用
+     * 如果一个线程A执行了threadB.join() 含义是：当前线程A等待线程B终止后才从threadB.join()返回
+     * 线程终止时，会调用线程自身的notifyAll方法，让join方法从wait中醒来，既而判断isAlive()为false 从join()方法返回 (标准的等待/通知模式）
+     *
+     *
+     * <p>
+     * public final synchronized void join() throws InterruptedException {
+     * // 条件不满足 继续等待
+     * while (isAlive()) {
+     * wait(0);
+     * }
+     * // 条件满足 返回
+     * }
+     * <p>
+     */
+    public static class Join {
+        public static void main(String[] args) throws Exception {
+            Thread previous = Thread.currentThread();
+            for (int i = 0; i < 10; i++) {
+                // 每个线程拥有前一个线程的引用 需要等待前一个线程的终止
+                Thread thread = new Thread(new Domino(previous), String.valueOf(i));
+                thread.start();
+                previous = thread;
             }
         }
 
+        static class Domino implements Runnable {
+            private Thread thread;
+
+            public Domino(Thread thread) {
+                this.thread = thread;
+            }
+
+            @Override
+            public void run() {
+                try {
+                    thread.join();
+                } catch (InterruptedException ignore) {
+                }
+                System.out.println(Thread.currentThread().getName() + " terminate.");
+            }
+        }
 
     }
-
 
 }
