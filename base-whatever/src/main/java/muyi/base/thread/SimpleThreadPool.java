@@ -61,6 +61,7 @@ public class SimpleThreadPool<Job extends Runnable> implements ThreadPool<Job> {
         public void run() {
             while (running) {
                 Job job = null;
+                // 上锁时间较短
                 synchronized (jobs) {
                     // 如果jobs是空的 那就wait
                     while (jobs.isEmpty()) {
@@ -80,6 +81,7 @@ public class SimpleThreadPool<Job extends Runnable> implements ThreadPool<Job> {
                     try {
                         job.run();
                     } catch (Exception ignore) {
+                        // 忽略Job执行中的异常
                     }
                 }
             }

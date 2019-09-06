@@ -276,7 +276,17 @@ public class ThreadLearn {
                 System.out.println(Thread.currentThread().getName() + " terminate.");
             }
         }
-
     }
+
+    /**
+     * 等待/超时模式
+     * 调用一个方法时等待一段时间，如果超时返回默认结果
+     *
+     * while(result == null && remaining > 0) {
+     *      wait(remaining);
+     *      remaining = future - System.currentTimeMillis();
+     * }
+     */
+
 
 }
