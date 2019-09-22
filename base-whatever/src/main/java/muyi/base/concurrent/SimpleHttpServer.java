@@ -54,6 +54,12 @@ public class SimpleHttpServer {
         serverSocket.close();
     }
 
+    public static void main(String[] args) throws Exception {
+        setBasePath("/Users/muyi/life/github/play-java/base-whatever/src/main/resources");
+        setPort(8080);
+        start();
+    }
+
 
     static class HttpRequestHandler implements Runnable {
 
@@ -75,29 +81,24 @@ public class SimpleHttpServer {
                 reader = new BufferedReader((new InputStreamReader(socket.getInputStream())));
                 String header = reader.readLine();
                 // 由相对路径计算出绝对路径
-                out = new PrintWriter(socket.getOutputStream());
                 String filePath = basePath + header.split(" ")[1];
+                System.out.println("filePath: " + filePath);
+                out = new PrintWriter(socket.getOutputStream());
+                in = new FileInputStream(filePath);
+                br = new BufferedReader(new InputStreamReader(in));
 
                 if (filePath.endsWith("jpg") || filePath.endsWith("ico")) {
                     // 如果请求资源的后缀为jpg或者ico 则读取资源并输出
-                    in = new FileInputStream(filePath);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    int i = 0;
-                    while ((i = in.read()) != -1) {
-                        baos.write(i);
-                    }
-
-                    byte[] array = baos.toByteArray();
                     out.println("HTTP/1.1 200 OK");
                     out.println("Server: Molly");
                     out.println("Content-Type: image/jpeg");
-                    out.println("Content-Length: " + array.length);
+//                    out.println("Content-Length: " + array.length);
                     out.println("");
-                    // ?
-                    socket.getOutputStream().write(array, 0, array.length);
+
+                    byte[] bytes = new byte[in.available()];
+                    in.read(bytes);
+                    socket.getOutputStream().write(bytes);
                 } else {
-                    br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
-                    out = new PrintWriter(socket.getOutputStream());
                     out.println("HTTP/1.1 200 OK");
                     out.println("Server: Molly");
                     out.println("Content-Type: text/html; charset=UTF-8");
@@ -108,6 +109,7 @@ public class SimpleHttpServer {
                 }
                 out.flush();
             } catch (Exception e) {
+                e.printStackTrace();
                 out.println("HTTP/1.1 500");
                 out.println("");
                 out.flush();
