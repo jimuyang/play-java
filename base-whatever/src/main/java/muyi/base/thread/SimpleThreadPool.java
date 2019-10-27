@@ -1,9 +1,7 @@
 package muyi.base.thread;
 
-import javafx.scene.control.Pagination;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
