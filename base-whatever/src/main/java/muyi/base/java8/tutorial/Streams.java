@@ -1,10 +1,8 @@
-package muyi.eight.tutorial;
+package muyi.base.java8.tutorial;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.BinaryOperator;
 import java.util.stream.Stream;
 
 /**

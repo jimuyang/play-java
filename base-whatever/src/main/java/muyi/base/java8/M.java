@@ -1,4 +1,4 @@
-package muyi.eight;
+package muyi.base.java8;
 
 import java.lang.reflect.Array;
 import java.util.*;

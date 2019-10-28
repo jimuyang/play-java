@@ -1,7 +1,6 @@
-package muyi.eight.tutorial;
+package muyi.base.java8.tutorial;
 
 
-import muyi.eight.tutorial.DefaultMethod;
 import org.junit.Test;
 
 /**

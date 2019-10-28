@@ -1,9 +1,8 @@
-package muyi.eight.avoidnull;
+package muyi.base.java8.avoidnull;
 
-import muyi.eight.M;
+import muyi.base.java8.M;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * Created with IntelliJ IDEA.
