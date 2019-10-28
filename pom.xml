@@ -19,13 +19,13 @@
     <modules>
         <module>base-whatever</module>
         <module>design-patterns</module>
-        <module>java-eight-new</module>
         <module>japi-doc</module>
         <module>leetcode-solve</module>
         <module>playground</module>
         <module>web-test</module>
         <module>dubbo-learn</module>
         <module>groovy-rule</module>
+        <module>netty-learn</module>
     </modules>
 
     <dependencies>
