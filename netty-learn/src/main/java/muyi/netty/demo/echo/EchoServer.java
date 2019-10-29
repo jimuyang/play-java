@@ -49,7 +49,6 @@ public class EchoServer {
                             if (sslCtx != null) {
                                 p.addLast(sslCtx.newHandler(ch.alloc()));
                             }
-
                             p.addLast(new EchoServerHandler());
                         }
                     });
