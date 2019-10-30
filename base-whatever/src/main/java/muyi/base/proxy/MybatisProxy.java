@@ -42,8 +42,8 @@ public class MybatisProxy {
      * {@link org.mybatis.spring.mapper.MapperFactoryBean#getObject()}
      * 上面的核心代码在：{@link MapperProxyFactory#newInstance(org.apache.ibatis.session.SqlSession)}
      * 使用的是jdk的动态代理 InvocationHandler: {@link MapperProxy#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])}
-     *
-     * 上述使用到的SqlSession都是{@link SqlSessionTemplate} 它是单例的 线程安全的 也因此有的proxy可以"共享"一个SqlSessionTemplate
+     * <p>
+     * 上述使用到的SqlSession都是{@link SqlSessionTemplate} 它是单例的 线程安全的 也因此所有的proxy可以"共享"一个SqlSessionTemplate
      * 当然是因为SqlSessionTemplate借用了它自己生成的: {@link SqlSessionTemplate#sqlSessionProxy} 来完成sqlSession的工作
      * 这个生成也是通过jdk动态代理生成 实际上每次通过sqlSessionProxy执行相关方法时 * 每次会由spring的事务管理和sqlSessionFactory来提供一个专用的sqlSession
      * {@link SqlSessionTemplate.SqlSessionInterceptor#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])}
