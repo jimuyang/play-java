@@ -34,6 +34,7 @@ public class EchoServer {
         }
 
         // config the server
+        // EventLoopGroup用于管理EventLoop next()方法返回的就是EventLoop
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
 
