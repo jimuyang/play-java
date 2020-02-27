@@ -31,5 +31,9 @@ public class Child extends Parent {
         this.name = "child";
     }
 
+    public static void main(String[] args) {
+        new Child();
+    }
+
 
 }

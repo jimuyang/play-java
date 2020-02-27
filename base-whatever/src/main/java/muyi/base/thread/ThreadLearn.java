@@ -90,7 +90,7 @@ public class ThreadLearn {
 
         private static class Runner implements Runnable {
             private long i;
-            // 这里我理解这个volatile在此处意义不大
+            // 这里我理解这个volatile在此处意义不大 ??? 意义很大
             private volatile boolean on = true;
 
             @Override
@@ -106,6 +106,32 @@ public class ThreadLearn {
             }
         }
     }
+
+    public static class ErrorStopThread {
+        public static class Runner implements Runnable {
+            private boolean stop;
+
+            @Override
+            public void run() {
+                while (!stop) {
+                }
+            }
+
+            public void stop() {
+                stop = true;
+            }
+
+        }
+
+        public static void main(String[] args) throws InterruptedException {
+            Runner runner = new Runner();
+            Thread thread = new Thread(runner, "runnerThread");
+            thread.start();
+            TimeUnit.SECONDS.sleep(1L);
+            runner.stop(); // 永远不会停止
+        }
+    }
+
 
     /**
      * 线程间通信
